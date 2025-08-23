@@ -1,258 +1,353 @@
-# Go-to-TypeScript Porting Template
+# @subtletools/go-osc52
 
-A comprehensive template for creating high-quality TypeScript ports of Go packages with 100% API compatibility.
+[![npm version](https://badge.fury.io/js/@subtletools%2Fgo-osc52.svg)](https://badge.fury.io/js/@subtletools%2Fgo-osc52)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 🚀 Quick Start
+A TypeScript port of [go-osc52](https://github.com/aymanbagabas/go-osc52) - Generate OSC52 escape sequences for terminal clipboard operations.
 
-### 1. Use this template
+OSC52 is a terminal escape sequence that allows copying text to the clipboard from anywhere, including:
+- SSH sessions
+- Docker containers  
+- Terminal multiplexers (tmux, screen)
+- Local terminals
 
-Click "Use this template" on GitHub or clone it:
+This library provides a complete TypeScript implementation with 100% API compatibility with the original Go package.
 
-```bash
-git clone https://github.com/SubtleTools/go-ts-template.git my-go-port
-cd my-go-port
-```
-
-### 2. Initialize for your Go package
-
-Run the initialization script with your target Go package:
-
-```bash
-# Install dependencies
-bun install
-
-# Initialize template (example with rivo/uniseg)
-bun run init https://github.com/rivo/uniseg @subtletools/uniseg-ts
-
-# Or with custom description
-bun run init https://github.com/charmbracelet/lipgloss @subtletools/lipgloss-ts "Terminal styling library for TypeScript"
-```
-
-### 3. Implement your port
+## 🚀 Installation
 
 ```bash
-# Analyze the Go codebase
-ls test/reference/
+# Using npm
+npm install @subtletools/go-osc52
 
-# Implement TypeScript version
-# Edit src/index.ts, src/core.ts, etc.
+# Using bun (recommended)
+bun add @subtletools/go-osc52
 
-# Test as you go
-bun test
-
-# Build when ready
-bun run build
+# Using yarn
+yarn add @subtletools/go-osc52
 ```
 
-## 📁 Template Structure
+## 📖 Quick Start
 
-```
-├── src/
-│   ├── index.ts          # TypeScript-native API (camelCase)
-│   ├── go-style.ts       # Go-compatible API (PascalCase)
-│   ├── types.ts          # TypeScript type definitions
-│   └── ...               # Your implementation files
-├── test/
-│   ├── basic.test.ts     # Basic functionality tests
-│   ├── reference/        # Go reference (auto-cloned)
-│   └── ...               # Compatibility tests
-├── scripts/
-│   └── init.ts           # Template initialization script
-├── .github/
-│   └── workflows/        # CI/CD workflows
-└── README.md             # Generated project README
-```
-
-## 🎯 Features
-
-### Dual API Support
-The template supports both TypeScript-native and Go-compatible APIs:
+### TypeScript-native API (Recommended)
 
 ```typescript
-// TypeScript-native API (recommended)
-import { mainFunction } from 'my-package';
-const result = mainFunction(input);
+import { Sequence } from '@subtletools/go-osc52';
 
-// Go-compatible API (for Go developers)
-import { MainFunction } from 'my-package/go-style';
-const result = MainFunction(input);
+// Copy text to system clipboard
+const seq = new Sequence('Hello, clipboard!');
+process.stderr.write(seq.toString());
+
+// Copy to primary clipboard (X11)
+const primary = new Sequence('Primary clipboard text').primary();
+process.stderr.write(primary.toString());
+
+// Use with tmux
+const tmux = new Sequence('From tmux session').tmux();
+process.stderr.write(tmux.toString());
+
+// Query clipboard contents
+const query = new Sequence().query();
+process.stderr.write(query.toString());
+
+// Clear clipboard
+const clear = new Sequence().clear();
+process.stderr.write(clear.toString());
 ```
 
-### Complete Project Setup
-- **TypeScript configuration** with strict type checking
-- **Bun-powered** build and test system
-- **GitHub Actions** for CI/CD and automated publishing
-- **Comprehensive documentation** templates
-- **Go compatibility testing** framework
-
-### Quality Assurance
-- **100% API compatibility** testing framework
-- **Cross-platform CI** (Ubuntu, macOS, Windows)  
-- **Multiple Node.js versions** (18, 20, 22)
-- **Automated publishing** to NPM on release
-
-## 🔧 Development Commands
-
-```bash
-# Install dependencies
-bun install
-
-# Initialize template
-bun run init <go-repo-url> <typescript-package-name>
-
-# Development
-bun run dev              # Watch mode
-bun test                 # Run tests
-bun test --watch         # Test watch mode
-bun run build            # Build TypeScript
-
-# Testing Go compatibility
-cd test/reference
-go run main.go > go-output.txt
-cd ../..
-bun run my-test.ts > ts-output.txt
-diff go-output.txt ts-output.txt  # Should be identical
-
-# Publishing
-bun run prepublishOnly   # Build and test before publishing
-```
-
-## 📋 Porting Checklist
-
-### Phase 1: Setup
-- [ ] Run `bun run init` with your Go package
-- [ ] Analyze Go codebase structure in `test/reference/`
-- [ ] Plan TypeScript module organization
-- [ ] Set up basic type definitions in `src/types.ts`
-
-### Phase 2: Core Implementation
-- [ ] Port main algorithms to TypeScript
-- [ ] Implement TypeScript-native API in `src/index.ts`
-- [ ] Create Go-compatible API in `src/go-style.ts`
-- [ ] Add comprehensive error handling
-
-### Phase 3: Testing & Compatibility
-- [ ] Create test cases in `test/`
-- [ ] Verify outputs match Go implementation exactly
-- [ ] Test edge cases and error conditions
-- [ ] Add performance benchmarks if needed
-
-### Phase 4: Documentation & Polish
-- [ ] Update README.md with usage examples
-- [ ] Add comprehensive API documentation
-- [ ] Update CHANGELOG.md
-- [ ] Ensure all CI checks pass
-
-### Phase 5: Publishing
-- [ ] Test package installation locally
-- [ ] Create GitHub release
-- [ ] Verify automated NPM publishing
-- [ ] Announce on relevant communities
-
-## 🧪 Testing Strategy
-
-### Go Compatibility Testing
-Create test cases that verify identical behavior:
+### Go-compatible API
 
 ```typescript
-// test/compatibility.test.ts
-import { test, expect } from 'bun:test';
-import { myFunction } from '../src/index.js';
+import { New, Query, Clear } from '@subtletools/go-osc52/go-style';
 
-test('matches Go output for basic case', () => {
-  // Expected output from Go implementation
-  const expected = 'go-output-here';
-  const actual = myFunction('input');
-  expect(actual).toBe(expected);
-});
+// Exact Go API compatibility
+const seq = New('Hello from Go-style API');
+process.stderr.write(seq.String());
+
+// Chain operations like in Go
+const result = New('text')
+  .Primary()
+  .Tmux()
+  .Limit(1000);
+process.stderr.write(result.String());
+
+// Query and clear operations
+process.stderr.write(Query().String());
+process.stderr.write(Clear().String());
 ```
 
-### Automated Testing
-The template includes workflows for:
-- **Unit tests** with Bun test runner
-- **Go comparison tests** using reference implementation
-- **Cross-platform testing** on multiple OS and Node.js versions
-- **Performance benchmarking** (optional)
+## 🔧 API Reference
 
-## 🎨 API Design Principles
+### Core Types
 
-### 1. Dual API Pattern
 ```typescript
-// TypeScript-native (recommended)
-export function graphemeCount(text: string): number;
-
-// Go-compatible (for migration)
-export function GraphemeCount(text: string): number;
-```
-
-### 2. Type Safety
-```typescript
-// Strong typing for all public APIs
-export interface SegmentOptions {
-  locale?: string;
-  boundaries?: BoundaryType[];
+enum Clipboard {
+  SystemClipboard = 'c',  // System clipboard
+  PrimaryClipboard = 'p'  // X11 primary clipboard
 }
 
-export function segment(text: string, options?: SegmentOptions): Segment[];
+enum Mode {
+  DefaultMode = 0,  // Standard OSC52
+  ScreenMode = 1,   // Escape for GNU screen
+  TmuxMode = 2      // Escape for tmux
+}
+
+enum Operation {
+  SetOperation = 0,    // Copy to clipboard
+  QueryOperation = 1,  // Query clipboard
+  ClearOperation = 2   // Clear clipboard
+}
 ```
 
-### 3. Performance
-- Use efficient data structures matching Go implementation
-- Minimize allocations and copying
-- Benchmark against Go version when possible
+### Sequence Class
 
-### 4. Error Handling
 ```typescript
-// Follow TypeScript conventions while maintaining Go compatibility
-export function parseInput(input: string): Result<Data, Error>;
+class Sequence {
+  // Fluent API methods
+  tmux(): Sequence              // Set tmux mode
+  screen(): Sequence            // Set screen mode
+  primary(): Sequence           // Use primary clipboard
+  withLimit(limit: number): Sequence  // Set size limit
+  query(): Sequence             // Query operation
+  clear(): Sequence             // Clear operation
+  
+  // Output methods
+  toString(): string            // Get escape sequence
+  writeTo(writer: Writer): Promise<number>  // Write to stream
+}
 ```
 
-## 📚 Resources
+### Module Functions
 
-### Go Analysis
-- Understand the Go package's architecture and patterns
-- Identify core algorithms and data structures
-- Note any Go-specific idioms that need TypeScript equivalents
-- Study the test cases for expected behavior
+```typescript
+// Create new sequences
+New(...strings: string[]): Sequence
+Query(): Sequence  
+Clear(): Sequence
 
-### TypeScript Best Practices
-- Use strict TypeScript configuration
-- Leverage advanced types for better developer experience
-- Follow modern ESM module patterns
-- Ensure tree-shaking compatibility
+// TypeScript-native alternatives
+newSequence(...strings: string[]): Sequence
+querySequence(): Sequence
+clearSequence(): Sequence
+```
 
-### Compatibility Tools
-- Use the Go reference in `test/reference/` for validation
-- Create comparison scripts for complex outputs
-- Set up automated compatibility testing in CI
+## 🎨 Usage Examples
+
+### SSH Session Clipboard
+
+```typescript
+import { Sequence } from '@subtletools/go-osc52';
+
+// Detect if we're in tmux and adjust accordingly
+const isInTmux = process.env.TMUX !== undefined;
+let seq = new Sequence('Copied from SSH!');
+
+if (isInTmux) {
+  seq = seq.tmux();
+}
+
+process.stderr.write(seq.toString());
+```
+
+### Large Text with Limits
+
+```typescript
+import { Sequence } from '@subtletools/go-osc52';
+
+const largeText = 'A'.repeat(10000);
+
+// Set a limit to prevent terminal issues
+const seq = new Sequence(largeText).withLimit(5000);
+const result = seq.toString();
+
+if (result === '') {
+  console.log('Text too large for clipboard');
+} else {
+  process.stderr.write(result);
+}
+```
+
+### Environment-aware Copying
+
+```typescript
+import { Sequence } from '@subtletools/go-osc52';
+
+function smartCopy(text: string): string {
+  let seq = new Sequence(text);
+  
+  // Detect terminal environment
+  const term = process.env.TERM || '';
+  
+  if (term.includes('screen')) {
+    seq = seq.screen();
+  } else if (process.env.TMUX) {
+    seq = seq.tmux();
+  }
+  
+  return seq.toString();
+}
+
+// Use it
+process.stderr.write(smartCopy('Smart clipboard copy!'));
+```
+
+### Multiple Clipboard Targets
+
+```typescript
+import { Sequence, Clipboard } from '@subtletools/go-osc52';
+
+const text = 'Copy to multiple clipboards';
+
+// System clipboard
+const system = new Sequence(text);
+process.stderr.write(system.toString());
+
+// Primary clipboard (X11)
+const primary = new Sequence(text).primary();
+process.stderr.write(primary.toString());
+```
+
+### Stream Integration
+
+```typescript
+import { Sequence } from '@subtletools/go-osc52';
+import { Writable } from 'stream';
+
+const seq = new Sequence('Stream integration example');
+
+// Write to process.stderr
+await seq.writeTo(process.stderr);
+
+// Write to custom stream
+const customStream = new Writable({
+  write(chunk, encoding, callback) {
+    console.log('Received:', chunk.toString());
+    callback();
+  }
+});
+
+await seq.writeTo(customStream);
+```
+
+## 🧪 Terminal Compatibility
+
+| Terminal | OSC52 Support | Notes |
+|----------|---------------|-------|
+| Alacritty | ✅ Yes | Full support |
+| iTerm2 | ✅ Yes | May need configuration |
+| Kitty | ✅ Yes | Full support |
+| WezTerm | ✅ Yes | Full support |
+| tmux | ⚠️ Partial | Use `.tmux()` mode or configure `set-clipboard on` |
+| GNU Screen | ⚠️ Partial | Use `.screen()` mode |
+| Windows Terminal | ✅ Yes | Recent versions |
+| VS Code Terminal | ❌ No | Use extension workarounds |
+
+## 🔧 Configuration
+
+### Tmux Configuration
+
+Add to your `~/.tmux.conf`:
+
+```bash
+# Enable clipboard integration
+set -g set-clipboard on
+
+# Or for manual mode (use .tmux() in code)
+set -g allow-passthrough on
+```
+
+### SSH Configuration
+
+For clipboard forwarding over SSH, some terminals support it automatically. For others, OSC52 sequences work without additional configuration.
+
+## 🏗️ Development
+
+```bash
+# Clone the repository
+git clone https://github.com/SubtleTools/go-osc52.git
+cd go-osc52
+
+# Install dependencies  
+bun install
+
+# Run tests
+bun test
+
+# Build the project
+bun run build
+
+# Run examples
+bun run examples/usage-comparison.ts
+```
+
+## 🧪 Testing
+
+The library includes comprehensive tests that verify 100% compatibility with the original Go implementation:
+
+```bash
+# Run all tests
+bun test
+
+# Run specific test suites
+bun test test/basic.test.ts
+```
+
+Test coverage includes:
+- All OSC52 sequence variations
+- Tmux and Screen mode escaping
+- Base64 encoding correctness  
+- Size limits and edge cases
+- WriteTo functionality
+- Go API compatibility
+
+## 📦 Package Structure
+
+```
+@subtletools/go-osc52/
+├── index.js          # TypeScript-native API
+├── go-style.js       # Go-compatible API
+├── types.d.ts        # Type definitions
+└── package.json
+```
+
+Import paths:
+```typescript
+// TypeScript-native (recommended)
+import { Sequence, New, Query, Clear } from '@subtletools/go-osc52';
+
+// Go-compatible API
+import { New, Query, Clear, Sequence } from '@subtletools/go-osc52/go-style';
+```
 
 ## 🤝 Contributing
 
-1. Fork this template repository
-2. Create your port using the template
-3. Share improvements back to the template
-4. Help others with their porting efforts
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Add tests for new functionality
+5. Ensure all tests pass (`bun test`)
+6. Commit your changes (`git commit -m 'Add amazing feature'`)
+7. Push to the branch (`git push origin feature/amazing-feature`)
+8. Open a Pull Request
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) file for details.
-
-## 🏆 Success Stories
-
-Ports created using this template:
-- [`@subtletools/uniseg-ts`](https://github.com/SubtleTools/uniseg-ts) - Unicode text segmentation
-- *Add your successful port here!*
+MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- **Go Community** - For creating excellent packages to port
-- **TypeScript Team** - For the amazing type system and tooling
-- **Bun Team** - For the fast runtime and package manager
+- **[Ayman Bagabas](https://github.com/aymanbagabas)** - Author of the original [go-osc52](https://github.com/aymanbagabas/go-osc52) library
+- **[Charm](https://charm.sh/)** - For the excellent terminal tooling ecosystem
+- **[OSC52 Specification](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html)** - For the technical documentation
+
+## 🔗 Related Projects
+
+- [go-osc52](https://github.com/aymanbagabas/go-osc52) - Original Go implementation  
+- [@subtletools/uniseg-ts](https://github.com/SubtleTools/uniseg-ts) - Unicode text segmentation
+- [Charm](https://charm.sh/) - Terminal applications and tools
 
 ---
 
 <div align="center">
-  <strong>Made with ❤️ by <a href="https://saulo.engineer">Saulo Vallory</a> <a href="https://github.com/svallory"><img src="assets/github.svg" alt="GitHub" style="vertical-align: middle; margin-left: 4px;"></a></strong>
+  <strong>Made with ❤️ for the terminal community</strong>
 </div>
-
-**Ready to port your favorite Go package to TypeScript? Let's go! 🚀**
