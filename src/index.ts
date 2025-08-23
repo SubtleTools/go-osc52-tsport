@@ -1,11 +1,28 @@
-// {{PACKAGE_NAME}} - TypeScript port of {{GO_PACKAGE}}
+// @subtletools/go-osc52 - TypeScript port of go-osc52
 // This is the main export file for the TypeScript-native API
 
-// Export your main functions here
-// Example:
-// export { mainFunction, helperFunction } from './core.js';
-// export type { MainType, HelperType } from './types.js';
+// Export the main classes and functions
+export { 
+  Sequence, 
+  newSequence, 
+  querySequence, 
+  clearSequence 
+} from './core.js';
 
-// TODO: Implement your TypeScript port of {{GO_PACKAGE}} here
-console.log('Welcome to {{PACKAGE_NAME}} - TypeScript port of {{GO_PACKAGE}}!');
-console.log('Run `bun run init` to initialize this template with your specific Go package.');
+// Export all types and enums
+export { 
+  Clipboard, 
+  Mode, 
+  Operation, 
+  type Writer, 
+  type WriterTo, 
+  type Stringer 
+} from './types.js';
+
+// Import for convenience aliases
+import { newSequence, querySequence, clearSequence } from './core.js';
+
+// Convenience aliases for common operations
+export const New = newSequence;
+export const Query = querySequence;
+export const Clear = clearSequence;
