@@ -1,6 +1,6 @@
-# @subtletools/go-osc52
+# @subtletools/go-osc52-ts
 
-[![npm version](https://badge.fury.io/js/@subtletools%2Fgo-osc52.svg)](https://badge.fury.io/js/@subtletools%2Fgo-osc52)
+[![npm version](https://badge.fury.io/js/@subtletools%2Fgo-osc52-ts.svg)](https://badge.fury.io/js/@subtletools%2Fgo-osc52-ts)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -18,13 +18,13 @@ This library provides a complete TypeScript implementation with 100% API compati
 
 ```bash
 # Using npm
-npm install @subtletools/go-osc52
+npm install @subtletools/go-osc52-ts
 
 # Using bun (recommended)
-bun add @subtletools/go-osc52
+bun add @subtletools/go-osc52-ts
 
 # Using yarn
-yarn add @subtletools/go-osc52
+yarn add @subtletools/go-osc52-ts
 ```
 
 ## 📖 Quick Start
@@ -32,7 +32,7 @@ yarn add @subtletools/go-osc52
 ### TypeScript-native API (Recommended)
 
 ```typescript
-import { Sequence } from '@subtletools/go-osc52';
+import { Sequence } from '@subtletools/go-osc52-ts';
 
 // Copy text to system clipboard
 const seq = new Sequence('Hello, clipboard!');
@@ -58,7 +58,7 @@ process.stderr.write(clear.toString());
 ### Go-compatible API
 
 ```typescript
-import { New, Query, Clear } from '@subtletools/go-osc52/go-style';
+import { New, Query, Clear } from '@subtletools/go-osc52-ts/go-style';
 
 // Exact Go API compatibility
 const seq = New('Hello from Go-style API');
@@ -136,7 +136,7 @@ clearSequence(): Sequence
 ### SSH Session Clipboard
 
 ```typescript
-import { Sequence } from '@subtletools/go-osc52';
+import { Sequence } from '@subtletools/go-osc52-ts';
 
 // Detect if we're in tmux and adjust accordingly
 const isInTmux = process.env.TMUX !== undefined;
@@ -152,7 +152,7 @@ process.stderr.write(seq.toString());
 ### Large Text with Limits
 
 ```typescript
-import { Sequence } from '@subtletools/go-osc52';
+import { Sequence } from '@subtletools/go-osc52-ts';
 
 const largeText = 'A'.repeat(10000);
 
@@ -170,7 +170,7 @@ if (result === '') {
 ### Environment-aware Copying
 
 ```typescript
-import { Sequence } from '@subtletools/go-osc52';
+import { Sequence } from '@subtletools/go-osc52-ts';
 
 function smartCopy(text: string): string {
   let seq = new Sequence(text);
@@ -194,7 +194,7 @@ process.stderr.write(smartCopy('Smart clipboard copy!'));
 ### Multiple Clipboard Targets
 
 ```typescript
-import { Sequence, Clipboard } from '@subtletools/go-osc52';
+import { Sequence, Clipboard } from '@subtletools/go-osc52-ts';
 
 const text = 'Copy to multiple clipboards';
 
@@ -210,7 +210,7 @@ process.stderr.write(primary.toString());
 ### Stream Integration
 
 ```typescript
-import { Sequence } from '@subtletools/go-osc52';
+import { Sequence } from '@subtletools/go-osc52-ts';
 import { Writable } from 'stream';
 
 const seq = new Sequence('Stream integration example');
@@ -264,7 +264,7 @@ For clipboard forwarding over SSH, some terminals support it automatically. For 
 
 ```bash
 # Clone the repository
-git clone https://github.com/SubtleTools/go-osc52.git
+git clone https://github.com/SubtleTools/go-osc52-ts.git
 cd go-osc52
 
 # Install dependencies  
@@ -303,7 +303,7 @@ Test coverage includes:
 ## 📦 Package Structure
 
 ```
-@subtletools/go-osc52/
+@subtletools/go-osc52-ts/
 ├── index.js          # TypeScript-native API
 ├── go-style.js       # Go-compatible API
 ├── types.d.ts        # Type definitions
@@ -313,10 +313,10 @@ Test coverage includes:
 Import paths:
 ```typescript
 // TypeScript-native (recommended)
-import { Sequence, New, Query, Clear } from '@subtletools/go-osc52';
+import { Sequence, New, Query, Clear } from '@subtletools/go-osc52-ts';
 
 // Go-compatible API
-import { New, Query, Clear, Sequence } from '@subtletools/go-osc52/go-style';
+import { New, Query, Clear, Sequence } from '@subtletools/go-osc52-ts/go-style';
 ```
 
 ## 🤝 Contributing

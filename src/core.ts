@@ -1,4 +1,4 @@
-// @subtletools/go-osc52 - Core OSC52 implementation
+// @subtletools/go-osc52-ts - Core OSC52 implementation
 
 import { Clipboard, Mode, Operation, Writer, WriterTo, Stringer } from './types.js';
 

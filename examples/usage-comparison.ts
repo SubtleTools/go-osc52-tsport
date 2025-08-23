@@ -1,5 +1,5 @@
 /**
- * Usage examples for @subtletools/go-osc52
+ * Usage examples for @subtletools/go-osc52-ts
  * Demonstrates both TypeScript-style and Go-style APIs for OSC52 clipboard operations
  */
 

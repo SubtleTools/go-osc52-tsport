@@ -1,4 +1,4 @@
-// @subtletools/go-osc52 - Go-compatible API
+// @subtletools/go-osc52-ts - Go-compatible API
 // This file provides the Go-compatible API matching the original Go package exactly
 
 import { 

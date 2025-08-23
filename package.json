@@ -1,5 +1,5 @@
 {
-  "name": "@subtletools/go-osc52",
+  "name": "@subtletools/go-osc52-ts",
   "version": "1.0.0",
   "description": "OSC52 terminal clipboard escape sequences - TypeScript port of go-osc52",
   "main": "./dist/index.js",
@@ -36,12 +36,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SubtleTools/go-osc52"
+    "url": "https://github.com/SubtleTools/go-osc52-ts"
   },
   "bugs": {
-    "url": "https://github.com/SubtleTools/go-osc52/issues"
+    "url": "https://github.com/SubtleTools/go-osc52-ts/issues"
   },
-  "homepage": "https://github.com/SubtleTools/go-osc52#readme",
+  "homepage": "https://github.com/SubtleTools/go-osc52-ts#readme",
   "engines": {
     "node": ">=18.0.0"
   },

@@ -1,4 +1,4 @@
-// @subtletools/go-osc52 - TypeScript port of go-osc52
+// @subtletools/go-osc52-ts - TypeScript port of go-osc52
 // This is the main export file for the TypeScript-native API
 
 // Export the main classes and functions
