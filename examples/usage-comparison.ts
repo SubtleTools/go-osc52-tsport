@@ -1,100 +1,168 @@
 /**
- * Usage examples for @subtletools/uniseg-ts
- * Demonstrates both TypeScript-style and Go-style APIs
+ * Usage examples for @subtletools/go-osc52
+ * Demonstrates both TypeScript-style and Go-style APIs for OSC52 clipboard operations
  */
 
 // TypeScript-style API (recommended)
 import { 
-  graphemeClusterCount, 
-  stringWidth, 
-  reverseString,
-  newGraphemes,
-  stepString,
-  INITIAL_STATE
+  Sequence, 
+  New, 
+  Query, 
+  Clear, 
+  Clipboard, 
+  Mode 
 } from '../src/index.js';
 
-// Go-style API (for compatibility)
-import {
-  GraphemeClusterCount,
-  StringWidth,
-  ReverseString,
-  NewGraphemes,
-  StepString
+// Go-style API (for exact Go compatibility)
+import { 
+  New as GoNew, 
+  Query as GoQuery, 
+  Clear as GoClear,
+  SystemClipboard,
+  PrimaryClipboard,
+  TmuxMode,
+  ScreenMode 
 } from '../src/go-style.js';
 
 console.log('=== TypeScript-style API ===\n');
 
-// Basic grapheme cluster counting
-console.log('Grapheme cluster counting:');
-const complexEmoji = "🇩🇪🏳️‍🌈";
-console.log(`"${complexEmoji}" has ${graphemeClusterCount(complexEmoji)} grapheme clusters`);
+// Basic clipboard copy operation
+console.log('Basic clipboard operations:');
+const text = 'Hello, clipboard!';
+const copySeq = new Sequence(text);
+console.log('Copy sequence:', JSON.stringify(copySeq.toString()));
 
-const devanagari = "नमस्ते";
-console.log(`"${devanagari}" has ${graphemeClusterCount(devanagari)} grapheme clusters`);
+// Fluent API chaining
+console.log('\nFluent API chaining:');
+const tmuxSeq = new Sequence('Hello from Tmux!')
+  .tmux()
+  .primary()
+  .withLimit(1000);
+console.log('Tmux + Primary + Limit:', JSON.stringify(tmuxSeq.toString()));
 
-const simple = "Hello";
-console.log(`"${simple}" has ${graphemeClusterCount(simple)} grapheme clusters\n`);
+// Query clipboard
+console.log('\nQuery operations:');
+const querySeq = new Sequence().query();
+console.log('Query system clipboard:', JSON.stringify(querySeq.toString()));
 
-// String width calculation
-console.log('String width calculation:');
-const mixed = "Hello 世界";
-console.log(`"${mixed}" has display width: ${stringWidth(mixed)}`);
+const queryPrimary = new Sequence().query().primary();
+console.log('Query primary clipboard:', JSON.stringify(queryPrimary.toString()));
 
-const wideChars = "こんにちは";
-console.log(`"${wideChars}" has display width: ${stringWidth(wideChars)}\n`);
+// Clear clipboard
+console.log('\nClear operations:');
+const clearSeq = new Sequence().clear();
+console.log('Clear system clipboard:', JSON.stringify(clearSeq.toString()));
 
-// String reversal preserving grapheme clusters
-console.log('String reversal:');
-console.log(`Original: "${complexEmoji}"`);
-console.log(`Reversed: "${reverseString(complexEmoji)}"\n`);
+const clearTmux = new Sequence().clear().tmux();
+console.log('Clear with Tmux mode:', JSON.stringify(clearTmux.toString()));
 
-// Grapheme cluster iteration
-console.log('Grapheme cluster iteration:');
-const testStr = "a̧🧑‍💻";
-const iterator = newGraphemes(testStr);
-let cluster;
-let index = 0;
-while ((cluster = iterator.next()) !== null) {
-  console.log(`  Cluster ${index++}: "${cluster.cluster}" (${cluster.runes.length} runes)`);
+// Screen mode with long text (demonstrates 76-byte chunking)
+console.log('\nScreen mode with long text:');
+const longText = 'This is a very long text that will be split into chunks when using screen mode because screen has limitations on OSC52 sequences';
+const screenSeq = new Sequence(longText).screen();
+console.log('Screen mode sequence (chunked):', JSON.stringify(screenSeq.toString()));
+
+// Mock writer example
+console.log('\nWriting to mock output:');
+class MockWriter {
+  private data = '';
+  
+  write(data: string | Buffer): boolean {
+    this.data += data.toString();
+    return true;
+  }
+  
+  getData(): string {
+    return this.data;
+  }
 }
-console.log();
 
-// Step-by-step processing
-console.log('Step-by-step processing:');
-let remaining = "🇺🇸a";
-let state = INITIAL_STATE;
-index = 0;
-while (remaining.length > 0) {
-  const result = stepString(remaining, state);
-  if (result.segment.length === 0) break;
-  console.log(`  Step ${index++}: "${result.segment}" (${result.segmentLength} bytes)`);
-  remaining = result.remainder;
-  state = result.newState;
-}
+const writer = new MockWriter();
+const writeSeq = new Sequence('Written to output');
+writeSeq.writeTo(writer).then(bytesWritten => {
+  console.log(`Wrote ${bytesWritten} bytes:`, JSON.stringify(writer.getData()));
+});
 
 console.log('\n=== Go-style API ===\n');
 
-// Same functionality with Go-style naming
-console.log('Go-style grapheme cluster counting:');
-console.log(`"${complexEmoji}" has ${GraphemeClusterCount(complexEmoji)} grapheme clusters`);
-console.log(`"${devanagari}" has ${GraphemeClusterCount(devanagari)} grapheme clusters\n`);
+// Same functionality with exact Go API
+console.log('Go-style basic copy:');
+const goSeq = GoNew('Hello from Go-style API');
+console.log('Go-style sequence:', JSON.stringify(goSeq.String()));
 
-console.log('Go-style string width:');
-console.log(`"${mixed}" has display width: ${StringWidth(mixed)}\n`);
+// Chain operations like in Go
+console.log('\nGo-style chaining:');
+const goChained = GoNew('Chained operations')
+  .Primary()
+  .Tmux()
+  .Limit(500);
+console.log('Go-style chained:', JSON.stringify(goChained.String()));
 
-console.log('Go-style string reversal:');
-console.log(`Reversed: "${ReverseString(complexEmoji)}"\n`);
+// Query operations
+console.log('\nGo-style query:');
+const goQuery = GoQuery().Primary().Mode(TmuxMode);
+console.log('Go-style query:', JSON.stringify(goQuery.String()));
 
-console.log('Go-style step processing:');
-const [segment, remainder, length, newState] = StepString("🇺🇸a", -1);
-console.log(`First segment: "${segment}" (${length} bytes)`);
-console.log(`Remaining: "${remainder}"`);
+// Clear operations  
+console.log('\nGo-style clear:');
+const goClear = GoClear().Mode(ScreenMode);
+console.log('Go-style clear:', JSON.stringify(goClear.String()));
 
-console.log('\nGo-style grapheme iteration:');
-const goGraphemes = NewGraphemes("a̧🧑‍💻");
-index = 0;
-while (goGraphemes.Next()) {
-  const runes = goGraphemes.Runes();
-  const str = goGraphemes.Str();
-  console.log(`  Cluster ${index++}: "${str}" (${runes.length} runes)`);
+// Demonstrating exact Go compatibility
+console.log('\nExact Go pattern replication:');
+const goPattern = GoNew('multiple', 'strings', 'joined')
+  .Clipboard(SystemClipboard)
+  .Mode(TmuxMode)
+  .Limit(100);
+console.log('Go pattern:', JSON.stringify(goPattern.String()));
+
+// WriteTo with Go-style error handling
+console.log('\nGo-style WriteTo with error handling:');
+const goWriter = new MockWriter();
+GoNew('Go-style write').WriteTo(goWriter).then(result => {
+  if (result.err) {
+    console.log('Error:', result.err.message);
+  } else {
+    console.log(`Go-style wrote ${result.n} bytes:`, JSON.stringify(goWriter.getData()));
+  }
+});
+
+console.log('\n=== Practical Usage Examples ===\n');
+
+// Real-world usage scenarios
+console.log('Real-world scenarios:');
+
+// 1. SSH session clipboard copy
+console.log('\n1. SSH session clipboard copy:');
+const sshCopy = new Sequence('Copied from SSH session').tmux();
+console.log('SSH sequence:', JSON.stringify(sshCopy.toString()));
+
+// 2. Terminal multiplexer detection
+console.log('\n2. Dynamic mode selection:');
+const termEnv = 'screen'; // Simulated environment variable
+let sequence = new Sequence('Environment-aware copy');
+if (termEnv === 'screen') {
+  sequence = sequence.screen();
+} else if (termEnv.includes('tmux')) {
+  sequence = sequence.tmux();
 }
+console.log('Environment-aware:', JSON.stringify(sequence.toString()));
+
+// 3. Large text handling
+console.log('\n3. Large text with limits:');
+const largeText = 'A'.repeat(10000);
+const limitedSeq = new Sequence(largeText).withLimit(100);
+console.log('Large text result:', limitedSeq.toString() === '' ? 'Rejected (too large)' : 'Accepted');
+
+const allowedSeq = new Sequence(largeText).withLimit(15000);
+console.log('Within limit result:', allowedSeq.toString().length > 0 ? 'Accepted' : 'Rejected');
+
+// 4. Clipboard selection patterns
+console.log('\n4. Clipboard selection patterns:');
+const systemClip = new Sequence('System clipboard text');
+const primaryClip = new Sequence('Primary clipboard text').primary();
+
+console.log('System clipboard:', JSON.stringify(systemClip.toString()));
+console.log('Primary clipboard:', JSON.stringify(primaryClip.toString()));
+
+console.log('\nExamples completed! 🎉');

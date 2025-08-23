@@ -1,7 +1,7 @@
 {
-  "name": "{{PACKAGE_NAME}}",
+  "name": "@subtletools/go-osc52",
   "version": "1.0.0",
-  "description": "{{PACKAGE_DESCRIPTION}}",
+  "description": "OSC52 terminal clipboard escape sequences - TypeScript port of go-osc52",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "module": "./dist/index.js",
@@ -19,7 +19,13 @@
     "init": "bun run scripts/init.ts"
   },
   "keywords": [
-    "{{KEYWORDS}}",
+    "osc52",
+    "clipboard",
+    "terminal",
+    "escape-sequences",
+    "tmux",
+    "screen",
+    "ssh",
     "typescript",
     "go-port"
   ],
@@ -30,12 +36,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "{{REPOSITORY_URL}}"
+    "url": "https://github.com/SubtleTools/go-osc52"
   },
   "bugs": {
-    "url": "{{REPOSITORY_URL}}/issues"
+    "url": "https://github.com/SubtleTools/go-osc52/issues"
   },
-  "homepage": "{{REPOSITORY_URL}}#readme",
+  "homepage": "https://github.com/SubtleTools/go-osc52#readme",
   "engines": {
     "node": ">=18.0.0"
   },
