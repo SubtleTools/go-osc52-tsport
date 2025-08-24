@@ -43,44 +43,43 @@ function discoverTestCases(): TestCase[] {
       .filter((item) => statSync(join(testCasesRoot, item)).isDirectory())
       .filter((item) => !['node_modules', '.git'].includes(item));
 
-  for (const category of categories) {
-    const categoryPath = join(testCasesRoot, category);
-    const testDirs = readdirSync(categoryPath).filter((item) =>
-      statSync(join(categoryPath, item)).isDirectory()
-    );
+    for (const category of categories) {
+      const categoryPath = join(testCasesRoot, category);
+      const testDirs = readdirSync(categoryPath).filter((item) =>
+        statSync(join(categoryPath, item)).isDirectory()
+      );
 
-    for (const testDir of testDirs) {
-      const testPath = join(categoryPath, testDir);
-      const goFile = join(testPath, 'case.go');
-      const tsFile = join(testPath, 'case.ts');
+      for (const testDir of testDirs) {
+        const testPath = join(categoryPath, testDir);
+        const goFile = join(testPath, 'case.go');
+        const tsFile = join(testPath, 'case.ts');
 
-      try {
-        statSync(goFile);
-        statSync(tsFile);
-
-        let metadata = {};
         try {
-          const metadataFile = join(testPath, 'metadata.json');
-          metadata = JSON.parse(readFileSync(metadataFile, 'utf8'));
-        } catch {
-          // metadata is optional
-        }
+          statSync(goFile);
+          statSync(tsFile);
 
-        cases.push({
-          id: testDir,
-          name: testDir.replace(/^\d+-/, '').replace(/-/g, ' '),
-          category,
-          path: testPath,
-          metadata,
-        });
-      } catch {
-        // Skip invalid test cases
+          let metadata = {};
+          try {
+            const metadataFile = join(testPath, 'metadata.json');
+            metadata = JSON.parse(readFileSync(metadataFile, 'utf8'));
+          } catch {
+            // metadata is optional
+          }
+
+          cases.push({
+            id: testDir,
+            name: testDir.replace(/^\d+-/, '').replace(/-/g, ' '),
+            category,
+            path: testPath,
+            metadata,
+          });
+        } catch {
+          // Skip invalid test cases
+        }
       }
     }
-  }
-  } catch (error) {
+  } catch {
     // Handle case where corpus directory doesn't exist or can't be read
-    console.log('No test corpus directory found, using empty test set');
     return [];
   }
 
