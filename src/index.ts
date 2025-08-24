@@ -3,10 +3,10 @@
 
 // Export the main classes and functions
 export {
-  Sequence,
+  clearSequence,
   newSequence,
   querySequence,
-  clearSequence
+  Sequence,
 } from './core.js';
 
 // Export all types and enums
@@ -14,13 +14,13 @@ export {
   Clipboard,
   Mode,
   Operation,
+  type Stringer,
   type Writer,
   type WriterTo,
-  type Stringer
 } from './types.js';
 
 // Import for convenience aliases
-import { newSequence, querySequence, clearSequence } from './core.js';
+import { clearSequence, newSequence, querySequence } from './core.js';
 
 // Convenience aliases for common operations
 export const New = newSequence;

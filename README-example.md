@@ -11,7 +11,7 @@
 
 **A comprehensive TypeScript port of [Charm's Lipgloss](https://github.com/charmbracelet/lipgloss) with 100% API compatibility**
 
-*Style definitions for beautiful terminal layouts. Built for TypeScript/Node.js.*
+_Style definitions for beautiful terminal layouts. Built for TypeScript/Node.js._
 
 [**Documentation**](https://tsports.github.io/lipgloss) • [**Examples**](https://tsports.github.io/lipgloss/examples) • [**API Reference**](https://tsports.github.io/lipgloss/api) • [**Go Original**](https://github.com/charmbracelet/lipgloss)
 
@@ -92,11 +92,12 @@ console.log(ui);
 ```
 
 **Output:**
+
 ```
-   ╭─────────────────────╮
-   │  Hello, Lipgloss!   │
-   ╰─────────────────────╯
-     Beautiful terminal UIs made easy
+╭─────────────────────╮
+│  Hello, Lipgloss!   │
+╰─────────────────────╯
+  Beautiful terminal UIs made easy
 ```
 
 ## Documentation
@@ -104,6 +105,7 @@ console.log(ui);
 ### Core Concepts
 
 #### Styles
+
 Styles are the heart of Lipgloss. They define how text should be rendered:
 
 ```typescript
@@ -124,6 +126,7 @@ console.log(style.render('Styled Text'));
 ```
 
 #### Colors
+
 Lipgloss supports multiple color formats:
 
 ```typescript
@@ -185,6 +188,7 @@ Lipgloss supports multiple color formats:
 ### Components
 
 #### Lists
+
 Create beautiful lists with various enumerators:
 
 ```typescript
@@ -205,6 +209,7 @@ const nestedList = NewList()
 ```
 
 #### Tables
+
 Structured data display with styling:
 
 ```typescript
@@ -234,6 +239,7 @@ const goTable = NewTable()
 ```
 
 #### Trees
+
 Hierarchical data visualization:
 
 ```typescript
@@ -254,6 +260,7 @@ const tree = NewTree()
 ### Advanced Features
 
 #### Unset Methods
+
 Remove specific styling properties with precision:
 
 ```typescript
@@ -419,13 +426,13 @@ const result = style.Render('Hello!');
 
 ### Method Mapping
 
-| Go Lipgloss | Go-Compat API | TypeScript-Native API |
-|-------------|---------------|----------------------|
-| `lipgloss.NewStyle()` | `NewStyle()` | `new Style()` |
-| `style.Foreground(color)` | `.Foreground(color)` | `.color(color)` |
+| Go Lipgloss               | Go-Compat API        | TypeScript-Native API     |
+| ------------------------- | -------------------- | ------------------------- |
+| `lipgloss.NewStyle()`     | `NewStyle()`         | `new Style()`             |
+| `style.Foreground(color)` | `.Foreground(color)` | `.color(color)`           |
 | `style.Background(color)` | `.Background(color)` | `.backgroundColor(color)` |
-| `style.Render(text)` | `.Render(text)` | `.render(text)` |
-| `lipgloss.Width(text)` | `Width(text)` | `Width(text)` |
+| `style.Render(text)`      | `.Render(text)`      | `.render(text)`           |
+| `lipgloss.Width(text)`    | `Width(text)`        | `Width(text)`             |
 
 ## Testing & Quality Assurance
 
@@ -570,6 +577,7 @@ bun run examples/new-api-showcase.ts
 ```
 
 This example demonstrates:
+
 - **44 unset methods** for precise style property removal
 - **5 enhanced table methods** for advanced table control
 - **3 whitespace functions** for custom whitespace visualization

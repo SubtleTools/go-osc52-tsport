@@ -2,17 +2,12 @@
 // This file provides the Go-compatible API matching the original Go package exactly
 
 import {
-  Sequence as CoreSequence,
+  type Sequence as CoreSequence,
+  clearSequence,
   newSequence,
   querySequence,
-  clearSequence
 } from './core.js';
-import {
-  Clipboard,
-  Mode,
-  Operation,
-  Writer
-} from './types.js';
+import { Clipboard, Mode, Operation, type Writer } from './types.js';
 
 /**
  * Go-compatible Sequence class that matches the original Go API exactly.
@@ -160,7 +155,7 @@ export function Clear(): Sequence {
 export {
   Clipboard,
   Mode,
-  Operation
+  Operation,
 } from './types.js';
 
 // Export individual clipboard constants for direct access

@@ -1,73 +1,83 @@
-import { test, expect, describe } from 'bun:test';
-import { New, Query, Clear, SystemClipboard, PrimaryClipboard, DefaultMode, TmuxMode, ScreenMode } from '../src/go-style.js';
+import { describe, expect, test } from 'bun:test';
+import {
+  Clear,
+  DefaultMode,
+  New,
+  PrimaryClipboard,
+  Query,
+  ScreenMode,
+  SystemClipboard,
+  TmuxMode,
+} from '../src/go-style.js';
 import { Sequence } from '../src/index.js';
 
 // Test cases matching the Go test file exactly
 describe('Copy operations (matching Go TestCopy)', () => {
   const testCases = [
     {
-      name: "hello world",
-      str: "hello world",
+      name: 'hello world',
+      str: 'hello world',
       clipboard: SystemClipboard,
       mode: DefaultMode,
       limit: 0,
-      expected: "\x1b]52;c;aGVsbG8gd29ybGQ=\x07",
+      expected: '\x1b]52;c;aGVsbG8gd29ybGQ=\x07',
     },
     {
-      name: "empty string",
-      str: "",
+      name: 'empty string',
+      str: '',
       clipboard: SystemClipboard,
       mode: DefaultMode,
       limit: 0,
-      expected: "\x1b]52;c;\x07",
+      expected: '\x1b]52;c;\x07',
     },
     {
-      name: "hello world primary",
-      str: "hello world",
+      name: 'hello world primary',
+      str: 'hello world',
       clipboard: PrimaryClipboard,
       mode: DefaultMode,
       limit: 0,
-      expected: "\x1b]52;p;aGVsbG8gd29ybGQ=\x07",
+      expected: '\x1b]52;p;aGVsbG8gd29ybGQ=\x07',
     },
     {
-      name: "hello world tmux mode",
-      str: "hello world",
+      name: 'hello world tmux mode',
+      str: 'hello world',
       clipboard: SystemClipboard,
       mode: TmuxMode,
       limit: 0,
-      expected: "\x1bPtmux;\x1b\x1b]52;c;aGVsbG8gd29ybGQ=\x07\x1b\\",
+      expected: '\x1bPtmux;\x1b\x1b]52;c;aGVsbG8gd29ybGQ=\x07\x1b\\',
     },
     {
-      name: "hello world screen mode",
-      str: "hello world",
+      name: 'hello world screen mode',
+      str: 'hello world',
       clipboard: SystemClipboard,
       mode: ScreenMode,
       limit: 0,
-      expected: "\x1bP\x1b]52;c;aGVsbG8gd29ybGQ=\x07\x1b\\",
+      expected: '\x1bP\x1b]52;c;aGVsbG8gd29ybGQ=\x07\x1b\\',
     },
     {
-      name: "hello world screen mode longer than 76 bytes string",
-      str: "hello world hello world hello world hello world hello world hello world hello world hello world",
+      name: 'hello world screen mode longer than 76 bytes string',
+      str: 'hello world hello world hello world hello world hello world hello world hello world hello world',
       clipboard: SystemClipboard,
       mode: ScreenMode,
       limit: 0,
-      expected: "\x1bP\x1b]52;c;aGVsbG8gd29ybGQgaGVsbG8gd29ybGQgaGVsbG8gd29ybGQgaGVsbG8gd29ybGQgaGVsbG8gd29y\x1b\\\x1bPbGQgaGVsbG8gd29ybGQgaGVsbG8gd29ybGQgaGVsbG8gd29ybGQ=\x07\x1b\\",
+      expected:
+        '\x1bP\x1b]52;c;aGVsbG8gd29ybGQgaGVsbG8gd29ybGQgaGVsbG8gd29ybGQgaGVsbG8gd29ybGQgaGVsbG8gd29y\x1b\\\x1bPbGQgaGVsbG8gd29ybGQgaGVsbG8gd29ybGQgaGVsbG8gd29ybGQ=\x07\x1b\\',
     },
     {
-      name: "hello world with limit 11",
-      str: "hello world",
+      name: 'hello world with limit 11',
+      str: 'hello world',
       clipboard: SystemClipboard,
       mode: DefaultMode,
       limit: 11,
-      expected: "\x1b]52;c;aGVsbG8gd29ybGQ=\x07",
+      expected: '\x1b]52;c;aGVsbG8gd29ybGQ=\x07',
     },
     {
-      name: "hello world with limit 10",
-      str: "hello world",
+      name: 'hello world with limit 10',
+      str: 'hello world',
       clipboard: SystemClipboard,
       mode: DefaultMode,
       limit: 10,
-      expected: "",
+      expected: '',
     },
   ];
 
@@ -85,40 +95,40 @@ describe('Copy operations (matching Go TestCopy)', () => {
 describe('Query operations (matching Go TestQuery)', () => {
   const testCases = [
     {
-      name: "query system clipboard",
+      name: 'query system clipboard',
       mode: DefaultMode,
       clipboard: SystemClipboard,
-      expected: "\x1b]52;c;?\x07",
+      expected: '\x1b]52;c;?\x07',
     },
     {
-      name: "query primary clipboard",
+      name: 'query primary clipboard',
       mode: DefaultMode,
       clipboard: PrimaryClipboard,
-      expected: "\x1b]52;p;?\x07",
+      expected: '\x1b]52;p;?\x07',
     },
     {
-      name: "query system clipboard tmux mode",
+      name: 'query system clipboard tmux mode',
       mode: TmuxMode,
       clipboard: SystemClipboard,
-      expected: "\x1bPtmux;\x1b\x1b]52;c;?\x07\x1b\\",
+      expected: '\x1bPtmux;\x1b\x1b]52;c;?\x07\x1b\\',
     },
     {
-      name: "query system clipboard screen mode",
+      name: 'query system clipboard screen mode',
       mode: ScreenMode,
       clipboard: SystemClipboard,
-      expected: "\x1bP\x1b]52;c;?\x07\x1b\\",
+      expected: '\x1bP\x1b]52;c;?\x07\x1b\\',
     },
     {
-      name: "query primary clipboard tmux mode",
+      name: 'query primary clipboard tmux mode',
       mode: TmuxMode,
       clipboard: PrimaryClipboard,
-      expected: "\x1bPtmux;\x1b\x1b]52;p;?\x07\x1b\\",
+      expected: '\x1bPtmux;\x1b\x1b]52;p;?\x07\x1b\\',
     },
     {
-      name: "query primary clipboard screen mode",
+      name: 'query primary clipboard screen mode',
       mode: ScreenMode,
       clipboard: PrimaryClipboard,
-      expected: "\x1bP\x1b]52;p;?\x07\x1b\\",
+      expected: '\x1bP\x1b]52;p;?\x07\x1b\\',
     },
   ];
 
@@ -133,22 +143,22 @@ describe('Query operations (matching Go TestQuery)', () => {
 describe('Clear operations (matching Go TestClear)', () => {
   const testCases = [
     {
-      name: "clear system clipboard",
+      name: 'clear system clipboard',
       mode: DefaultMode,
       clipboard: SystemClipboard,
-      expected: "\x1b]52;c;!\x07",
+      expected: '\x1b]52;c;!\x07',
     },
     {
-      name: "clear system clipboard tmux mode",
+      name: 'clear system clipboard tmux mode',
       mode: TmuxMode,
       clipboard: SystemClipboard,
-      expected: "\x1bPtmux;\x1b\x1b]52;c;!\x07\x1b\\",
+      expected: '\x1bPtmux;\x1b\x1b]52;c;!\x07\x1b\\',
     },
     {
-      name: "clear system clipboard screen mode",
+      name: 'clear system clipboard screen mode',
       mode: ScreenMode,
       clipboard: SystemClipboard,
-      expected: "\x1bP\x1b]52;c;!\x07\x1b\\",
+      expected: '\x1bP\x1b]52;c;!\x07\x1b\\',
     },
   ];
 
@@ -163,20 +173,20 @@ describe('Clear operations (matching Go TestClear)', () => {
 describe('WriteTo operations (matching Go TestWriteTo)', () => {
   const testCases = [
     {
-      name: "hello world",
-      str: "hello world",
+      name: 'hello world',
+      str: 'hello world',
       clipboard: SystemClipboard,
       mode: DefaultMode,
       limit: 0,
-      expected: "\x1b]52;c;aGVsbG8gd29ybGQ=\x07",
+      expected: '\x1b]52;c;aGVsbG8gd29ybGQ=\x07',
     },
     {
-      name: "empty string",
-      str: "",
+      name: 'empty string',
+      str: '',
       clipboard: SystemClipboard,
       mode: DefaultMode,
       limit: 0,
-      expected: "\x1b]52;c;\x07",
+      expected: '\x1b]52;c;\x07',
     },
   ];
 
@@ -193,7 +203,7 @@ describe('WriteTo operations (matching Go TestWriteTo)', () => {
         write: (data: string | Buffer) => {
           writtenData += data.toString();
           return true;
-        }
+        },
       };
 
       const result = await s.WriteTo(mockWriter);
@@ -211,11 +221,8 @@ describe('TypeScript-native API functionality', () => {
   });
 
   test('fluent API chaining', () => {
-    const seq = new Sequence('test')
-      .tmux()
-      .primary()
-      .withLimit(100);
-    
+    const seq = new Sequence('test').tmux().primary().withLimit(100);
+
     expect(seq.toString()).toBe('\x1bPtmux;\x1b\x1b]52;p;dGVzdA==\x07\x1b\\');
   });
 

@@ -1,4 +1,4 @@
-  # @tsports/go-osc52
+# @tsports/go-osc52
 
 [![npm version](https://badge.fury.io/js/@tsports%2Fgo-osc52.svg)](https://badge.fury.io/js/@tsports%2Fgo-osc52)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
@@ -7,6 +7,7 @@
 A TypeScript port of [go-osc52](https://github.com/aymanbagabas/go-osc52) - Generate OSC52 escape sequences for terminal clipboard operations.
 
 OSC52 is a terminal escape sequence that allows copying text to the clipboard from anywhere, including:
+
 - SSH sessions
 - Docker containers
 - Terminal multiplexers (tmux, screen)
@@ -231,16 +232,16 @@ await seq.writeTo(customStream);
 
 ## 🧪 Terminal Compatibility
 
-| Terminal | OSC52 Support | Notes |
-|----------|---------------|-------|
-| Alacritty | ✅ Yes | Full support |
-| iTerm2 | ✅ Yes | May need configuration |
-| Kitty | ✅ Yes | Full support |
-| WezTerm | ✅ Yes | Full support |
-| tmux | ⚠️ Partial | Use `.tmux()` mode or configure `set-clipboard on` |
-| GNU Screen | ⚠️ Partial | Use `.screen()` mode |
-| Windows Terminal | ✅ Yes | Recent versions |
-| VS Code Terminal | ❌ No | Use extension workarounds |
+| Terminal         | OSC52 Support | Notes                                              |
+| ---------------- | ------------- | -------------------------------------------------- |
+| Alacritty        | ✅ Yes        | Full support                                       |
+| iTerm2           | ✅ Yes        | May need configuration                             |
+| Kitty            | ✅ Yes        | Full support                                       |
+| WezTerm          | ✅ Yes        | Full support                                       |
+| tmux             | ⚠️ Partial     | Use `.tmux()` mode or configure `set-clipboard on` |
+| GNU Screen       | ⚠️ Partial     | Use `.screen()` mode                               |
+| Windows Terminal | ✅ Yes        | Recent versions                                    |
+| VS Code Terminal | ❌ No         | Use extension workarounds                          |
 
 ## 🔧 Configuration
 
@@ -293,6 +294,7 @@ bun test test/basic.test.ts
 ```
 
 Test coverage includes:
+
 - All OSC52 sequence variations
 - Tmux and Screen mode escaping
 - Base64 encoding correctness
@@ -311,6 +313,7 @@ Test coverage includes:
 ```
 
 Import paths:
+
 ```typescript
 // TypeScript-native (recommended)
 import { Sequence, New, Query, Clear } from '@tsports/go-osc52';

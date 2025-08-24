@@ -41,7 +41,7 @@ export enum Operation {
  * Supports both Node.js Writable streams and custom write methods.
  */
 export interface Writer {
-  write(data: string | Buffer): boolean | void;
+  write(data: string | Buffer): boolean | undefined;
 }
 
 /**

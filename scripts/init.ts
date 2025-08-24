@@ -114,12 +114,12 @@ async function initializeTemplate(options: InitOptions) {
 
   // Template replacements
   const replacements: Record<string, string> = {
-    '{{PACKAGE_NAME}}': packageName,
-    '{{PACKAGE_DESCRIPTION}}': description!,
-    '{{GO_PACKAGE}}': goPackageName,
-    '{{GO_REPO}}': goRepo,
-    '{{REPOSITORY_URL}}': repositoryUrl!,
-    '{{KEYWORDS}}': keywords!.map(k => `"${k}"`).join(',\\n    ')
+    '{{ packageName }}': packageName,
+    '{{ finalDescription }}': description!,
+    '{{ goPackageName }}': goPackageName,
+    '{{ goRepo }}': goRepo,
+    '{{ repositoryUrl }}': repositoryUrl!,
+    '{{ generatedKeywords }}': keywords!.map(k => `"${k}"`).join(',\\n    ')
   };
 
   console.log('📝 Updating template files...');

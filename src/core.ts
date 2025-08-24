@@ -1,6 +1,6 @@
 // @tsports/go-osc52 - Core OSC52 implementation
 
-import { Clipboard, Mode, Operation, Writer, WriterTo, Stringer } from './types.js';
+import { Clipboard, Mode, Operation, type Stringer, type Writer, type WriterTo } from './types.js';
 
 /**
  * Sequence represents an OSC52 escape sequence for clipboard operations.
@@ -49,7 +49,7 @@ export class Sequence implements Stringer, WriterTo {
     seq += `\x1b]52;${this.clipboard};`;
 
     switch (this.op) {
-      case Operation.SetOperation:
+      case Operation.SetOperation: {
         const str = this.str;
         if (this.limit > 0 && str.length > this.limit) {
           return '';
@@ -72,6 +72,7 @@ export class Sequence implements Stringer, WriterTo {
           seq += b64;
         }
         break;
+      }
 
       case Operation.QueryOperation:
         // OSC52 queries the clipboard using "?"
@@ -263,13 +264,7 @@ export class Sequence implements Stringer, WriterTo {
  */
 export function newSequence(...strs: string[]): Sequence {
   const str = strs.join(' ');
-  return new Sequence(
-    str,
-    0,
-    Operation.SetOperation,
-    Mode.DefaultMode,
-    Clipboard.SystemClipboard
-  );
+  return new Sequence(str, 0, Operation.SetOperation, Mode.DefaultMode, Clipboard.SystemClipboard);
 }
 
 /**
