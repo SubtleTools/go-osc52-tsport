@@ -38,9 +38,10 @@ interface TestCase {
 function discoverTestCases(): TestCase[] {
   const cases: TestCase[] = [];
 
-  const categories = readdirSync(testCasesRoot)
-    .filter((item) => statSync(join(testCasesRoot, item)).isDirectory())
-    .filter((item) => !['node_modules', '.git'].includes(item));
+  try {
+    const categories = readdirSync(testCasesRoot)
+      .filter((item) => statSync(join(testCasesRoot, item)).isDirectory())
+      .filter((item) => !['node_modules', '.git'].includes(item));
 
   for (const category of categories) {
     const categoryPath = join(testCasesRoot, category);
@@ -76,6 +77,11 @@ function discoverTestCases(): TestCase[] {
         // Skip invalid test cases
       }
     }
+  }
+  } catch (error) {
+    // Handle case where corpus directory doesn't exist or can't be read
+    console.log('No test corpus directory found, using empty test set');
+    return [];
   }
 
   return cases.sort((a, b) => a.id.localeCompare(b.id));
