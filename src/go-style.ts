@@ -1,17 +1,17 @@
-// @subtletools/go-osc52-ts - Go-compatible API
+// @tsports/go-osc52 - Go-compatible API
 // This file provides the Go-compatible API matching the original Go package exactly
 
-import { 
-  Sequence as CoreSequence, 
-  newSequence, 
-  querySequence, 
-  clearSequence 
+import {
+  Sequence as CoreSequence,
+  newSequence,
+  querySequence,
+  clearSequence
 } from './core.js';
-import { 
-  Clipboard, 
-  Mode, 
-  Operation, 
-  Writer 
+import {
+  Clipboard,
+  Mode,
+  Operation,
+  Writer
 } from './types.js';
 
 /**
@@ -157,10 +157,10 @@ export function Clear(): Sequence {
 }
 
 // Export constants that match the Go package exactly
-export { 
-  Clipboard, 
-  Mode, 
-  Operation 
+export {
+  Clipboard,
+  Mode,
+  Operation
 } from './types.js';
 
 // Export individual clipboard constants for direct access

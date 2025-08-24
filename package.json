@@ -1,5 +1,5 @@
 {
-  "name": "@subtletools/go-osc52-ts",
+  "name": "@tsports/go-osc52",
   "version": "1.0.0",
   "description": "OSC52 terminal clipboard escape sequences - TypeScript port of go-osc52",
   "main": "./dist/index.js",
@@ -7,18 +7,25 @@
   "module": "./dist/index.js",
   "type": "module",
   "scripts": {
-    "build": "bun run build:clean && bun run build:compile",
-    "build:clean": "rm -rf dist",
-    "build:compile": "tsc",
-    "dev": "bun run --watch src/index.ts",
-    "test": "bun test",
-    "test:filter": "bun test --filter",
-    "test:compatibility": "bun test automated-cases.test.ts",
-    "prepublishOnly": "bun run build && bun test",
-    "prepack": "bun run build",
-    "init": "bun run scripts/init.ts"
+    "build": "moon run build",
+    "build:clean": "moon run build:clean",
+    "build:compile": "moon run build:compile",
+    "dev": "moon run dev",
+    "test": "moon run test",
+    "test:filter": "moon run test:filter",
+    "test:compatibility": "moon run test:compatibility",
+    "docs": "moon run docs",
+    "docs:build": "moon run docs:build",
+    "docs:serve": "moon run docs:serve",
+    "lint": "moon run lint",
+    "format": "moon run format",
+    "format:check": "dprint check",
+    "prepublishOnly": "moon run prepublish",
+    "prepack": "moon run prepack",
+    "setup": "moon run setup"
   },
   "keywords": [
+    "go-osc52",
     "osc52",
     "clipboard",
     "terminal",
@@ -26,22 +33,21 @@
     "tmux",
     "screen",
     "ssh",
-    "typescript",
-    "go-port"
+    "typescript"
   ],
   "author": {
-    "name": "SubtleTools",
-    "url": "https://github.com/SubtleTools"
+    "name": "tsports",
+    "url": "https://github.com/tsports"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SubtleTools/go-osc52-ts"
+    "url": "https://github.com/tsports/go-osc52"
   },
   "bugs": {
-    "url": "https://github.com/SubtleTools/go-osc52-ts/issues"
+    "url": "https://github.com/tsports/go-osc52/issues"
   },
-  "homepage": "https://github.com/SubtleTools/go-osc52-ts#readme",
+  "homepage": "https://github.com/tsports/go-osc52#readme",
   "engines": {
     "node": ">=18.0.0"
   },
@@ -51,21 +57,40 @@
     "LICENSE",
     "CHANGELOG.md"
   ],
+  "imports": {
+    "#src/*": "./src/*",
+    "#test/*": "./test/*"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
     },
     "./go-style": {
       "import": "./dist/go-style.js",
+      "require": "./dist/go-style.cjs",
       "types": "./dist/go-style.d.ts"
-    }
+    },
+    "./types": {
+      "import": "./dist/types.js",
+      "require": "./dist/types.cjs",
+      "types": "./dist/types.d.ts"
+    },
+    "./package.json": "./package.json",
+    "./README.md": "./README.md"
   },
   "dependencies": {},
   "devDependencies": {
-    "@types/bun": "latest",
-    "@types/node": "^24.3.0",
+    "@biomejs/biome": "2.2.2",
+    "@moonrepo/cli": "^1.39.4",
+    "@types/bun": "^1.2.20",
     "bun-types": "^1.2.20",
-    "typescript": "latest"
+    "dprint": "^0.50.1",
+    "tsconfig-moon": "^1.4.1",
+    "typedoc": "^0.28.10",
+    "typedoc-plugin-markdown": "^4.8.1",
+    "typedoc-theme-hierarchy": "^6.0.0",
+    "typescript": "^5.9.2"
   }
 }

@@ -2,27 +2,27 @@
 
 <div align="center">
 
-[![npm version](https://badge.fury.io/js/@subtletools%2Flipgloss-ts.svg)](https://badge.fury.io/js/@subtletools%2Flipgloss-ts)
+[![npm version](https://badge.fury.io/js/@tsports%2Flipgloss.svg)](https://badge.fury.io/js/@tsports%2Flipgloss)
 [![TypeScript](https://badgen.net/badge/icon/typescript?icon=typescript&label)](https://typescriptlang.org)
-[![Tests](https://github.com/SubtleTools/lipgloss-ts/actions/workflows/test.yml/badge.svg)](https://github.com/SubtleTools/lipgloss-ts/actions/workflows/test.yml)
-[![codecov](https://codecov.io/gh/SubtleTools/lipgloss-ts/branch/main/graph/badge.svg)](https://codecov.io/gh/SubtleTools/lipgloss-ts)
+[![Tests](https://github.com/tsports/lipgloss/actions/workflows/test.yml/badge.svg)](https://github.com/tsports/lipgloss/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/tsports/lipgloss/branch/main/graph/badge.svg)](https://codecov.io/gh/tsports/lipgloss)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js Version](https://img.shields.io/node/v/@subtletools/lipgloss-ts)](https://nodejs.org)
+[![Node.js Version](https://img.shields.io/node/v/@tsports/lipgloss)](https://nodejs.org)
 
 **A comprehensive TypeScript port of [Charm's Lipgloss](https://github.com/charmbracelet/lipgloss) with 100% API compatibility**
 
 *Style definitions for beautiful terminal layouts. Built for TypeScript/Node.js.*
 
-[**Documentation**](https://subtletools.github.io/lipgloss-ts) • [**Examples**](https://subtletools.github.io/lipgloss-ts/examples) • [**API Reference**](https://subtletools.github.io/lipgloss-ts/api) • [**Go Original**](https://github.com/charmbracelet/lipgloss)
+[**Documentation**](https://tsports.github.io/lipgloss) • [**Examples**](https://tsports.github.io/lipgloss/examples) • [**API Reference**](https://tsports.github.io/lipgloss/api) • [**Go Original**](https://github.com/charmbracelet/lipgloss)
 
-<img src="https://subtletools.github.io/lipgloss-ts/assets/demo.gif" width="600" alt="Lipgloss TypeScript Demo">
+<img src="https://tsports.github.io/lipgloss/assets/demo.gif" width="600" alt="Lipgloss TypeScript Demo">
 
 </div>
 
 ## Features
 
 - **Complete terminal styling** - Colors, text decorations, borders, spacing
-- **Advanced layout system** - Padding, margins, alignment, dimensions  
+- **Advanced layout system** - Padding, margins, alignment, dimensions
 - **Component library** - Lists, tables, trees for complex UIs
 - **Layout composition** - Join and position elements with precision
 - **100% Go API compatibility** - All 295 Go Lipgloss methods implemented
@@ -37,13 +37,13 @@
 
 ```bash
 # npm
-npm install @subtletools/lipgloss-ts
+npm install @tsports/lipgloss
 
-# yarn  
-yarn add @subtletools/lipgloss-ts
+# yarn
+yarn add @tsports/lipgloss
 
 # bun (recommended)
-bun add @subtletools/lipgloss-ts
+bun add @tsports/lipgloss
 ```
 
 ### Basic Usage
@@ -51,7 +51,7 @@ bun add @subtletools/lipgloss-ts
 **TypeScript-Native API (Recommended):**
 
 ```typescript
-import { Style, JoinVertical, Center } from '@subtletools/lipgloss-ts';
+import { Style, JoinVertical, Center } from '@tsports/lipgloss';
 
 // Create styles with modern TypeScript API
 const titleStyle = new Style()
@@ -77,7 +77,7 @@ console.log(ui);
 **Go-Compatible API (For Go Developers):**
 
 ```typescript
-import { NewStyle, JoinVertical, Center } from '@subtletools/lipgloss-ts/go-compat';
+import { NewStyle, JoinVertical, Center } from '@tsports/lipgloss/go-compat';
 
 // Exact Go Lipgloss API with PascalCase methods
 const titleStyle = NewStyle()
@@ -96,7 +96,7 @@ console.log(ui);
    ╭─────────────────────╮
    │  Hello, Lipgloss!   │
    ╰─────────────────────╯
-     Beautiful terminal UIs made easy   
+     Beautiful terminal UIs made easy
 ```
 
 ## Documentation
@@ -131,7 +131,7 @@ Lipgloss supports multiple color formats:
 .color('red')
 .backgroundColor('blue')
 
-// Hex colors  
+// Hex colors
 .color('#FF5733')
 .backgroundColor('#C70039')
 
@@ -148,7 +148,7 @@ Lipgloss supports multiple color formats:
 ```typescript
 // Padding (inside spacing)
 .padding(1)        // All sides
-.padding(1, 2)     // Vertical, horizontal  
+.padding(1, 2)     // Vertical, horizontal
 .padding(1, 2, 3, 4) // Top, right, bottom, left
 
 // Margins (outside spacing)
@@ -167,7 +167,7 @@ Lipgloss supports multiple color formats:
 ```typescript
 // Border styles
 .borderStyle('normal')    // ┌─┐
-.borderStyle('rounded')   // ╭─╮  
+.borderStyle('rounded')   // ╭─╮
 .borderStyle('thick')     // ┏━┓
 .borderStyle('double')    // ╔═╗
 
@@ -188,7 +188,7 @@ Lipgloss supports multiple color formats:
 Create beautiful lists with various enumerators:
 
 ```typescript
-import { NewList, Bullet, Arabic, Alphabet } from '@subtletools/lipgloss-ts';
+import { NewList, Bullet, Arabic, Alphabet } from '@tsports/lipgloss';
 
 const list = NewList()
   .enumerator(Bullet)  // • ◦ ▪ ▫
@@ -209,7 +209,7 @@ Structured data display with styling:
 
 ```typescript
 // TypeScript-native API
-import { newTable, Style } from '@subtletools/lipgloss-ts';
+import { newTable, Style } from '@tsports/lipgloss';
 
 const table = newTable()
   .setHeaders('Name', 'Age', 'City')
@@ -222,7 +222,7 @@ const table = newTable()
   .setHeaderStyle(new Style().bold(true).color('blue'));
 
 // Go-compatible API
-import { NewTable, NewStyle } from '@subtletools/lipgloss-ts/go-compat';
+import { NewTable, NewStyle } from '@tsports/lipgloss/go-compat';
 
 const goTable = NewTable()
   .SetHeaders('Name', 'Age', 'City')
@@ -237,7 +237,7 @@ const goTable = NewTable()
 Hierarchical data visualization:
 
 ```typescript
-import { NewTree, RoundedEnumerator } from '@subtletools/lipgloss-ts';
+import { NewTree, RoundedEnumerator } from '@tsports/lipgloss';
 
 const tree = NewTree()
   .root('Root')
@@ -262,7 +262,7 @@ const style = new Style().bold(true).color('red').padding(2);
 
 // Unset specific properties
 const unboldStyle = style.unsetBold();           // Remove bold only
-const noColorStyle = style.unsetForeground();    // Remove text color only  
+const noColorStyle = style.unsetForeground();    // Remove text color only
 const noPaddingStyle = style.unsetPadding();     // Remove padding only
 
 // Available unset methods:
@@ -277,14 +277,14 @@ const noPaddingStyle = style.unsetPadding();     // Remove padding only
 #### Enhanced Table Methods
 
 ```typescript
-import { newTable } from '@subtletools/lipgloss-ts';
+import { newTable } from '@tsports/lipgloss';
 
 // Advanced table control
 const table = newTable()
   .setHeaders('Name', 'Age', 'City')
   .rows(['Alice', '25', 'NYC'], ['Bob', '30', 'LA'])
   .borderHeader(true)        // Control header border
-  .borderColumn(false)       // Control column separators  
+  .borderColumn(false)       // Control column separators
   .borderRow(true)           // Control row separators
   .offset(2)                 // Offset table position
   .wrap(true);               // Enable text wrapping in cells
@@ -293,12 +293,12 @@ const table = newTable()
 #### Whitespace Functions
 
 ```typescript
-import { 
-  WithWhitespaceForeground, 
-  WithWhitespaceBackground, 
+import {
+  WithWhitespaceForeground,
+  WithWhitespaceBackground,
   WithWhitespaceChars,
-  renderWhitespace 
-} from '@subtletools/lipgloss-ts';
+  renderWhitespace
+} from '@tsports/lipgloss';
 
 // Control whitespace rendering appearance
 const options = {};
@@ -312,7 +312,7 @@ const styledWhitespace = renderWhitespace(10, options);
 #### Constants
 
 ```typescript
-import { NoTabConversion } from '@subtletools/lipgloss-ts';
+import { NoTabConversion } from '@tsports/lipgloss';
 
 // Disable tab-to-space conversion
 const style = new Style().tabWidth(NoTabConversion);
@@ -323,13 +323,13 @@ const style = new Style().tabWidth(NoTabConversion);
 #### Joining Elements
 
 ```typescript
-import { JoinHorizontal, JoinVertical, Position } from '@subtletools/lipgloss-ts';
+import { JoinHorizontal, JoinVertical, Position } from '@tsports/lipgloss';
 
 // Horizontal layout
 const header = JoinHorizontal(
   Position.Center,
   leftColumn,
-  middleColumn, 
+  middleColumn,
   rightColumn
 );
 
@@ -345,7 +345,7 @@ const page = JoinVertical(
 #### Positioning
 
 ```typescript
-import { Place, PlaceHorizontal, PlaceVertical } from '@subtletools/lipgloss-ts';
+import { Place, PlaceHorizontal, PlaceVertical } from '@tsports/lipgloss';
 
 // Center text in a 80x24 box
 const centered = Place(80, 24, Position.Center, Position.Center, 'Hello!');
@@ -363,7 +363,7 @@ Lipgloss TypeScript offers two APIs to suit different developer preferences:
 Modern TypeScript patterns with `new` constructors and camelCase methods:
 
 ```typescript
-import { Style, newTable, JoinVertical } from '@subtletools/lipgloss-ts';
+import { Style, newTable, JoinVertical } from '@tsports/lipgloss';
 
 const style = new Style()
   .color('205')
@@ -381,7 +381,7 @@ const table = newTable()
 **100% identical** Go Lipgloss API with PascalCase methods and factory functions:
 
 ```typescript
-import { NewStyle, NewTable } from '@subtletools/lipgloss-ts/go-compat';
+import { NewStyle, NewTable } from '@tsports/lipgloss/go-compat';
 
 // Exact Go API with PascalCase methods
 const goStyle = NewStyle()
@@ -406,7 +406,7 @@ result := style.Render("Hello!")
 
 ```typescript
 // TypeScript - EXACT same API
-import { NewStyle } from '@subtletools/lipgloss-ts/go-compat';
+import { NewStyle } from '@tsports/lipgloss/go-compat';
 
 const style = NewStyle()
   .Foreground('205')
@@ -434,7 +434,7 @@ const result = style.Render('Hello!');
 **Lipgloss TypeScript achieves complete compatibility with Go Lipgloss:**
 
 - **425+ tests passing** - Comprehensive comparative testing suite with 100% pass rate
-- **All 295 APIs implemented** - Every Go Lipgloss method available  
+- **All 295 APIs implemented** - Every Go Lipgloss method available
 - **Zero TypeScript compilation errors** - Strict type checking enabled
 - **Complete documentation** - API docs and guides auto-generated
 - **Production-ready** - Comprehensive error handling and edge case coverage
@@ -458,7 +458,7 @@ bun test
 # Run comparative tests against Go
 bun test test/comparative.test.ts
 
-# Run visual regression tests  
+# Run visual regression tests
 bun test test/visual-regression.test.ts
 
 # Run component tests
@@ -486,7 +486,7 @@ bun test --coverage
 ```
 src/
 ├── style.ts          # Core Style class (150+ methods)
-├── renderer.ts       # ANSI generation & color management  
+├── renderer.ts       # ANSI generation & color management
 ├── layout.ts         # Padding, margins, alignment
 ├── borders.ts        # Border styles and rendering
 ├── color.ts          # Color parsing and conversion
@@ -494,7 +494,7 @@ src/
 ├── utils.ts          # Text measurement utilities
 ├── components/
 │   ├── list/         # List component
-│   ├── table/        # Table component  
+│   ├── table/        # Table component
 │   └── tree/         # Tree component
 └── types.ts          # TypeScript type definitions
 ```
@@ -515,8 +515,8 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ```bash
 # Clone the repository
-git clone https://github.com/SubtleTools/lipgloss-ts.git
-cd lipgloss-ts
+git clone https://github.com/tsports/lipgloss.git
+cd lipgloss
 
 # Install dependencies (Bun recommended)
 bun install
@@ -549,7 +549,7 @@ bun run lint
 
 ## Performance
 
-Lipgloss-ts is designed for high performance with:
+lipgloss is designed for high performance with:
 
 - **Optimized rendering pipeline** - Efficient ANSI sequence generation
 - **Memory-conscious design** - Immutable patterns prevent memory leaks
@@ -582,7 +582,7 @@ This example demonstrates:
 // Precise style manipulation with unset methods
 const style = new Style().bold(true).color('red').padding(2);
 const noBold = style.unsetBold();           // Remove bold only
-const noColor = style.unsetForeground();    // Remove color only  
+const noColor = style.unsetForeground();    // Remove color only
 const noSpacing = style.unsetPadding();     // Remove padding only
 
 // Enhanced table control
@@ -604,9 +604,9 @@ WithWhitespaceChars('·—¶')(options);          // Custom whitespace chars
 
 ## Links
 
-- **[Documentation](https://subtletools.github.io/lipgloss-ts)** - Complete guide and examples
-- **[API Reference](https://subtletools.github.io/lipgloss-ts/api)** - Generated TypeScript docs  
-- **[Examples](https://subtletools.github.io/lipgloss-ts/examples)** - Live examples and demos
+- **[Documentation](https://tsports.github.io/lipgloss)** - Complete guide and examples
+- **[API Reference](https://tsports.github.io/lipgloss/api)** - Generated TypeScript docs
+- **[Examples](https://tsports.github.io/lipgloss/examples)** - Live examples and demos
 - **[Original Go Lipgloss](https://github.com/charmbracelet/lipgloss)** - The inspiration
 - **[Charm](https://charm.sh)** - The amazing team behind the original
 
@@ -623,6 +623,6 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ---
 
 <div align="center">
-  <strong>Made with ❤️ by the SubtleTools team</strong><br>
+  <strong>Made with ❤️ by the tsports team</strong><br>
   <em>Bringing beautiful terminal UIs to the TypeScript ecosystem</em>
 </div>

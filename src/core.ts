@@ -1,4 +1,4 @@
-// @subtletools/go-osc52-ts - Core OSC52 implementation
+// @tsports/go-osc52 - Core OSC52 implementation
 
 import { Clipboard, Mode, Operation, Writer, WriterTo, Stringer } from './types.js';
 
@@ -41,13 +41,13 @@ export class Sequence implements Stringer, WriterTo {
    */
   toString(): string {
     let seq = '';
-    
+
     // Mode escape sequences start
     seq += this.seqStart();
-    
+
     // Actual OSC52 sequence start
     seq += `\x1b]52;${this.clipboard};`;
-    
+
     switch (this.op) {
       case Operation.SetOperation:
         const str = this.str;
@@ -55,7 +55,7 @@ export class Sequence implements Stringer, WriterTo {
           return '';
         }
         const b64 = Buffer.from(str, 'utf-8').toString('base64');
-        
+
         if (this.mode === Mode.ScreenMode) {
           // Screen doesn't support OSC52 but will pass the contents of a DCS
           // sequence to the outer terminal unchanged.
@@ -72,25 +72,25 @@ export class Sequence implements Stringer, WriterTo {
           seq += b64;
         }
         break;
-        
+
       case Operation.QueryOperation:
         // OSC52 queries the clipboard using "?"
         seq += '?';
         break;
-        
+
       case Operation.ClearOperation:
         // OSC52 clears the clipboard if the data is neither a base64 string nor "?"
         // we're using "!" as a default
         seq += '!';
         break;
     }
-    
+
     // Actual OSC52 sequence end
     seq += '\x07';
-    
+
     // Mode escape end
     seq += this.seqEnd();
-    
+
     return seq;
   }
 
@@ -103,13 +103,13 @@ export class Sequence implements Stringer, WriterTo {
   async writeTo(writer: Writer): Promise<number> {
     const data = this.toString();
     const buffer = Buffer.from(data, 'utf-8');
-    
+
     // Handle different writer types
     if (typeof writer.write === 'function') {
       writer.write(buffer);
       return buffer.length;
     }
-    
+
     throw new Error('Invalid writer: must have write method');
   }
 
@@ -125,10 +125,10 @@ export class Sequence implements Stringer, WriterTo {
   /**
    * tmux sets the mode to TmuxMode.
    * Used to escape the OSC52 sequence for `tmux`.
-   * 
+   *
    * Note: this is not needed if tmux clipboard is set to `set-clipboard on`. If
    * TmuxMode is used, tmux must have `allow-passthrough on` set.
-   * 
+   *
    * This is syntactic sugar for withMode(Mode.TmuxMode).
    * @returns A new Sequence instance with TmuxMode
    */
@@ -139,7 +139,7 @@ export class Sequence implements Stringer, WriterTo {
   /**
    * screen sets the mode to ScreenMode.
    * Used to escape the OSC52 sequence for `screen`.
-   * 
+   *
    * This is syntactic sugar for withMode(Mode.ScreenMode).
    * @returns A new Sequence instance with ScreenMode
    */
@@ -159,7 +159,7 @@ export class Sequence implements Stringer, WriterTo {
   /**
    * primary sets the clipboard buffer to PrimaryClipboard.
    * This is the X11 primary clipboard.
-   * 
+   *
    * This is syntactic sugar for withClipboard(Clipboard.PrimaryClipboard).
    * @returns A new Sequence instance with primary clipboard
    */
@@ -170,7 +170,7 @@ export class Sequence implements Stringer, WriterTo {
   /**
    * withLimit sets the limit for the OSC52 sequence.
    * The default limit is 0 (no limit).
-   * 
+   *
    * Strings longer than the limit get ignored. Setting the limit to 0 or a
    * negative value disables the limit. Each terminal defines its own escape
    * sequence limit.
@@ -195,7 +195,7 @@ export class Sequence implements Stringer, WriterTo {
   /**
    * clear sets the operation to ClearOperation.
    * This clears the clipboard.
-   * 
+   *
    * This is syntactic sugar for withOperation(Operation.ClearOperation).
    * @returns A new Sequence instance with clear operation
    */
@@ -206,7 +206,7 @@ export class Sequence implements Stringer, WriterTo {
   /**
    * query sets the operation to QueryOperation.
    * This queries the clipboard contents.
-   * 
+   *
    * This is syntactic sugar for withOperation(Operation.QueryOperation).
    * @returns A new Sequence instance with query operation
    */
@@ -275,7 +275,7 @@ export function newSequence(...strs: string[]): Sequence {
 /**
  * querySequence creates a new OSC52 sequence with the QueryOperation.
  * This returns a new OSC52 sequence to query the clipboard contents.
- * 
+ *
  * This is syntactic sugar for newSequence().query().
  * @returns A new Sequence instance with query operation
  */
@@ -286,7 +286,7 @@ export function querySequence(): Sequence {
 /**
  * clearSequence creates a new OSC52 sequence with the ClearOperation.
  * This returns a new OSC52 sequence to clear the clipboard.
- * 
+ *
  * This is syntactic sugar for newSequence().clear().
  * @returns A new Sequence instance with clear operation
  */

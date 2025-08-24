@@ -1,6 +1,6 @@
 # Go-to-TypeScript Port Setup Guide
 
-This guide explains how to create a new TypeScript port of a Go library using the test strategy demonstrated in this Lipgloss-TS project.
+This guide explains how to create a new TypeScript port of a Go library using the test strategy demonstrated in this lipgloss project.
 
 ## Prerequisites
 

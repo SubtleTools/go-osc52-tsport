@@ -7,7 +7,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -36,14 +36,14 @@ jobs:
 
       - name: Create GitHub Release Assets
         run: |
-          tar -czf uniseg-ts-${{ github.event.release.tag_name }}.tar.gz dist/ package.json README.md LICENSE
-          
+          tar -czf uniseg-${{ github.event.release.tag_name }}.tar.gz dist/ package.json README.md LICENSE
+
       - name: Upload Release Assets
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./uniseg-ts-${{ github.event.release.tag_name }}.tar.gz
-          asset_name: uniseg-ts-${{ github.event.release.tag_name }}.tar.gz
+          asset_path: ./uniseg-${{ github.event.release.tag_name }}.tar.gz
+          asset_name: uniseg-${{ github.event.release.tag_name }}.tar.gz
           asset_content_type: application/gzip

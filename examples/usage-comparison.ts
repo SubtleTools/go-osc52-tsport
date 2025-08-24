@@ -1,27 +1,27 @@
 /**
- * Usage examples for @subtletools/go-osc52-ts
+ * Usage examples for @tsports/go-osc52
  * Demonstrates both TypeScript-style and Go-style APIs for OSC52 clipboard operations
  */
 
 // TypeScript-style API (recommended)
-import { 
-  Sequence, 
-  New, 
-  Query, 
-  Clear, 
-  Clipboard, 
-  Mode 
+import {
+  Sequence,
+  New,
+  Query,
+  Clear,
+  Clipboard,
+  Mode
 } from '../src/index.js';
 
 // Go-style API (for exact Go compatibility)
-import { 
-  New as GoNew, 
-  Query as GoQuery, 
+import {
+  New as GoNew,
+  Query as GoQuery,
   Clear as GoClear,
   SystemClipboard,
   PrimaryClipboard,
   TmuxMode,
-  ScreenMode 
+  ScreenMode
 } from '../src/go-style.js';
 
 console.log('=== TypeScript-style API ===\n');
@@ -66,12 +66,12 @@ console.log('Screen mode sequence (chunked):', JSON.stringify(screenSeq.toString
 console.log('\nWriting to mock output:');
 class MockWriter {
   private data = '';
-  
+
   write(data: string | Buffer): boolean {
     this.data += data.toString();
     return true;
   }
-  
+
   getData(): string {
     return this.data;
   }
@@ -103,7 +103,7 @@ console.log('\nGo-style query:');
 const goQuery = GoQuery().Primary().Mode(TmuxMode);
 console.log('Go-style query:', JSON.stringify(goQuery.String()));
 
-// Clear operations  
+// Clear operations
 console.log('\nGo-style clear:');
 const goClear = GoClear().Mode(ScreenMode);
 console.log('Go-style clear:', JSON.stringify(goClear.String()));

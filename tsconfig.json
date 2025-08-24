@@ -6,6 +6,15 @@
     "lib": ["ESNext"],
     "moduleResolution": "bundler",
     "baseUrl": ".",
+    "paths": {
+      "@tsports/go-osc52": ["./src/index.ts"],
+      "@tsports/go-osc52/go-style": ["./src/go-style.ts"],
+      "@tsports/go-osc52/types": ["./src/types.ts"],
+      "#src/*": ["./src/*"],
+      "#test/*": ["./test/*"],
+      "@/*": ["./src/*"],
+      "~/test/*": ["./test/*"]
+    },
     
     // Import/Export behavior
     // "allowImportingTsExtensions": true, // Disabled for emit

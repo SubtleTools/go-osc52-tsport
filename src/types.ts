@@ -1,4 +1,4 @@
-// @subtletools/go-osc52-ts - TypeScript type definitions
+// @tsports/go-osc52 - TypeScript type definitions
 
 /**
  * Clipboard type represents the clipboard buffer to use.

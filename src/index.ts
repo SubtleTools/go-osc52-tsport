@@ -1,22 +1,22 @@
-// @subtletools/go-osc52-ts - TypeScript port of go-osc52
+// @tsports/go-osc52 - TypeScript port of go-osc52
 // This is the main export file for the TypeScript-native API
 
 // Export the main classes and functions
-export { 
-  Sequence, 
-  newSequence, 
-  querySequence, 
-  clearSequence 
+export {
+  Sequence,
+  newSequence,
+  querySequence,
+  clearSequence
 } from './core.js';
 
 // Export all types and enums
-export { 
-  Clipboard, 
-  Mode, 
-  Operation, 
-  type Writer, 
-  type WriterTo, 
-  type Stringer 
+export {
+  Clipboard,
+  Mode,
+  Operation,
+  type Writer,
+  type WriterTo,
+  type Stringer
 } from './types.js';
 
 // Import for convenience aliases

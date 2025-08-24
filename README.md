@@ -1,6 +1,6 @@
-# @subtletools/go-osc52-ts
+  # @tsports/go-osc52
 
-[![npm version](https://badge.fury.io/js/@subtletools%2Fgo-osc52-ts.svg)](https://badge.fury.io/js/@subtletools%2Fgo-osc52-ts)
+[![npm version](https://badge.fury.io/js/@tsports%2Fgo-osc52.svg)](https://badge.fury.io/js/@tsports%2Fgo-osc52)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -8,7 +8,7 @@ A TypeScript port of [go-osc52](https://github.com/aymanbagabas/go-osc52) - Gene
 
 OSC52 is a terminal escape sequence that allows copying text to the clipboard from anywhere, including:
 - SSH sessions
-- Docker containers  
+- Docker containers
 - Terminal multiplexers (tmux, screen)
 - Local terminals
 
@@ -18,13 +18,13 @@ This library provides a complete TypeScript implementation with 100% API compati
 
 ```bash
 # Using npm
-npm install @subtletools/go-osc52-ts
+npm install @tsports/go-osc52
 
 # Using bun (recommended)
-bun add @subtletools/go-osc52-ts
+bun add @tsports/go-osc52
 
 # Using yarn
-yarn add @subtletools/go-osc52-ts
+yarn add @tsports/go-osc52
 ```
 
 ## 📖 Quick Start
@@ -32,7 +32,7 @@ yarn add @subtletools/go-osc52-ts
 ### TypeScript-native API (Recommended)
 
 ```typescript
-import { Sequence } from '@subtletools/go-osc52-ts';
+import { Sequence } from '@tsports/go-osc52';
 
 // Copy text to system clipboard
 const seq = new Sequence('Hello, clipboard!');
@@ -58,7 +58,7 @@ process.stderr.write(clear.toString());
 ### Go-compatible API
 
 ```typescript
-import { New, Query, Clear } from '@subtletools/go-osc52-ts/go-style';
+import { New, Query, Clear } from '@tsports/go-osc52/go-style';
 
 // Exact Go API compatibility
 const seq = New('Hello from Go-style API');
@@ -110,7 +110,7 @@ class Sequence {
   withLimit(limit: number): Sequence  // Set size limit
   query(): Sequence             // Query operation
   clear(): Sequence             // Clear operation
-  
+
   // Output methods
   toString(): string            // Get escape sequence
   writeTo(writer: Writer): Promise<number>  // Write to stream
@@ -122,7 +122,7 @@ class Sequence {
 ```typescript
 // Create new sequences
 New(...strings: string[]): Sequence
-Query(): Sequence  
+Query(): Sequence
 Clear(): Sequence
 
 // TypeScript-native alternatives
@@ -136,7 +136,7 @@ clearSequence(): Sequence
 ### SSH Session Clipboard
 
 ```typescript
-import { Sequence } from '@subtletools/go-osc52-ts';
+import { Sequence } from '@tsports/go-osc52';
 
 // Detect if we're in tmux and adjust accordingly
 const isInTmux = process.env.TMUX !== undefined;
@@ -152,7 +152,7 @@ process.stderr.write(seq.toString());
 ### Large Text with Limits
 
 ```typescript
-import { Sequence } from '@subtletools/go-osc52-ts';
+import { Sequence } from '@tsports/go-osc52';
 
 const largeText = 'A'.repeat(10000);
 
@@ -170,20 +170,20 @@ if (result === '') {
 ### Environment-aware Copying
 
 ```typescript
-import { Sequence } from '@subtletools/go-osc52-ts';
+import { Sequence } from '@tsports/go-osc52';
 
 function smartCopy(text: string): string {
   let seq = new Sequence(text);
-  
+
   // Detect terminal environment
   const term = process.env.TERM || '';
-  
+
   if (term.includes('screen')) {
     seq = seq.screen();
   } else if (process.env.TMUX) {
     seq = seq.tmux();
   }
-  
+
   return seq.toString();
 }
 
@@ -194,7 +194,7 @@ process.stderr.write(smartCopy('Smart clipboard copy!'));
 ### Multiple Clipboard Targets
 
 ```typescript
-import { Sequence, Clipboard } from '@subtletools/go-osc52-ts';
+import { Sequence, Clipboard } from '@tsports/go-osc52';
 
 const text = 'Copy to multiple clipboards';
 
@@ -210,7 +210,7 @@ process.stderr.write(primary.toString());
 ### Stream Integration
 
 ```typescript
-import { Sequence } from '@subtletools/go-osc52-ts';
+import { Sequence } from '@tsports/go-osc52';
 import { Writable } from 'stream';
 
 const seq = new Sequence('Stream integration example');
@@ -264,10 +264,10 @@ For clipboard forwarding over SSH, some terminals support it automatically. For 
 
 ```bash
 # Clone the repository
-git clone https://github.com/SubtleTools/go-osc52-ts.git
+git clone https://github.com/tsports/go-osc52.git
 cd go-osc52
 
-# Install dependencies  
+# Install dependencies
 bun install
 
 # Run tests
@@ -295,7 +295,7 @@ bun test test/basic.test.ts
 Test coverage includes:
 - All OSC52 sequence variations
 - Tmux and Screen mode escaping
-- Base64 encoding correctness  
+- Base64 encoding correctness
 - Size limits and edge cases
 - WriteTo functionality
 - Go API compatibility
@@ -303,7 +303,7 @@ Test coverage includes:
 ## 📦 Package Structure
 
 ```
-@subtletools/go-osc52-ts/
+@tsports/go-osc52/
 ├── index.js          # TypeScript-native API
 ├── go-style.js       # Go-compatible API
 ├── types.d.ts        # Type definitions
@@ -313,10 +313,10 @@ Test coverage includes:
 Import paths:
 ```typescript
 // TypeScript-native (recommended)
-import { Sequence, New, Query, Clear } from '@subtletools/go-osc52-ts';
+import { Sequence, New, Query, Clear } from '@tsports/go-osc52';
 
 // Go-compatible API
-import { New, Query, Clear, Sequence } from '@subtletools/go-osc52-ts/go-style';
+import { New, Query, Clear, Sequence } from '@tsports/go-osc52/go-style';
 ```
 
 ## 🤝 Contributing
@@ -342,8 +342,8 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🔗 Related Projects
 
-- [go-osc52](https://github.com/aymanbagabas/go-osc52) - Original Go implementation  
-- [@subtletools/uniseg-ts](https://github.com/SubtleTools/uniseg-ts) - Unicode text segmentation
+- [go-osc52](https://github.com/aymanbagabas/go-osc52) - Original Go implementation
+- [@tsports/uniseg](https://github.com/tsports/uniseg) - Unicode text segmentation
 - [Charm](https://charm.sh/) - Terminal applications and tools
 
 ---
