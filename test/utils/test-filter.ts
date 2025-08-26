@@ -24,10 +24,12 @@ export const applyFilter = <T extends { name?: string; category?: string; id?: s
 
 export const logFilterInfo = <T extends { name?: string; id?: string }>(
   filter: string | undefined,
-  _originalItems: T[],
-  _filteredItems: T[],
-  _itemType: string = 'items'
+  originalItems: T[],
+  filteredItems: T[],
+  itemType: string = 'items'
 ): void => {
   if (filter) {
+    console.log(`🔍 Filter applied: "${filter}"`);
+    console.log(`📋 Found ${filteredItems.length}/${originalItems.length} matching ${itemType}`);
   }
 };

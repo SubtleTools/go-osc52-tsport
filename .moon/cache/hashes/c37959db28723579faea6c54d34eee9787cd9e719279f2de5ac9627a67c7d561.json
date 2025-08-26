@@ -1,1 +1,0 @@
-[{"projects":{"go-osc52":{"alias":"@tsports/go-osc52","source":"."}},"configs":{".moon/toolchain.yml":"8bf36f5e54d9fe60cb92d6b479428c8bf00f9130",".moon/workspace.yml":"f2f46123f7a00cee29913cf4b8904cd56a456d8c","moon.yml":"f8dc246d37a4177e0f26f77bb4957f5d0f084368"},"env":{"MOON_OUTPUT_STYLE":"","MOON_RETRY_COUNT":""},"inDocker":false,"version":"1.39.4"}]
