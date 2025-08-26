@@ -93,7 +93,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           # TSPort versions are prereleases, so they get published correctly
-          npm publish
+          npm publish --access public
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
